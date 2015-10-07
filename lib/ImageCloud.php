@@ -56,6 +56,25 @@ class ImageCloud
 		return $response;
 	}
 	
+	public function delete( $image ) {
+		$response = array();
+		try {
+			if( $image != null ) {
+				throw new Exception( 'Image should not be empty / null ' . $image, 1 );
+			}
+			$url = $this->bucket_name . "/" . $image;
+			$request = new CurlUtils( $this->target, $this->api_key );
+			$response = $request->send_request( $url, $response, METHOD_DELETE, false );
+			if( $response->get_status_code() != 200 && $response->get_status_code() != 201 ) {
+				$response->set_buff( $response_codes[$response->get_status_code() ] );
+			}
+		}
+		catch( Exceptione $e ) {
+			throw new Exception( $e->getMessage() , 1 );
+		}
+		return $response;
+	}
+	
 	public function upload( $image, $post_params ) {
 		
 		try {

@@ -1,2 +1,2 @@
 # php_client
-PHP plugin for ing-cloud
+PHP plugin for img-cloud
